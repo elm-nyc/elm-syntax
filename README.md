@@ -42,6 +42,10 @@ elmStyle =
   ]
 ```
 
+**FUNCTIONAL CONCEPT: immutability and `=`**
+
+in elm, `=` may be a bit different than in languages that you've worked with. While `=` commonly means "gets", as in, a variable "gets" a value, in elm it's closer to the way one might think of it in math. Therefore, when I write `four = 4` I'm saying that `four` is _defined to be_ `4`. I can not, elsewhere in the same scope, define it to be something else - `four` is "immutable". In this way, I can be confident that anywhere in my code where I see `4` I can replace it with `four`, and vice versa, without changing the meaning of my program. This may take some time to get used to, but it often has the effect of making programs easier to understand and reason about.
+
 # Tuple
 Pairs of values defined with `( , )`. Values in a tuple do not need to be of the same type.
 ```
@@ -52,14 +56,33 @@ heterogeneous =
   ("One", 2)
 ```
 
-Record
+# Record
+A record is a set of key-value pairs and have a lot of similarities to objects in JavaScript. Record literals are written as `{ key = "value" }` and values can be accessed using dot notation as in javascript.
+```
+person = 
+ { name = "Kara"
+ , favoriteLanguage = "elm"
+ }
 
-Dict
+person.name
+.name person
 
-Maybe
+```
+Updating values in records cannot, however, be achieved by mutating a value, as in javascript. ie `object = { key = "value" }; object.key = "otherValue"` will not fly here. Instead, there is a completely different syntax that takes a record and returns a *new* record with updated values. 
+```
+{ person | name = "Noah }
+```
+this will give us a new record `{ name = "Noah", favoriteLanguage = "elm" }`
 
-**FUNCTIONAL CONCEPT: immutability and `=`**
-in elm, `=` may be a bit different than in languages that you've worked with. While `=` commonly means "gets", as in, a variable "gets" a value, in elm it's closer to the way one might think of it in math. Therefore, when I write `four = 4` I'm saying that `four` is _defined to be_ `4`. I can not, elsewhere in the same scope, define it to be something else - `four` is "immutable". In this way, I can be confident that anywhere in my code where I see `4` I can replace it with `four`, and vice versa, without changing the meaning of my program. This may take some time to get used to, but it often has the effect of making programs easier to understand and reason about.
+# Booleans
+Bools in elm are `True` and `False`, and have all the operations you're probably already familiar with - `not`, `&&`, `||`. `xor` or "exclusive or" is also available and evaluates to true if exactly one input is true (`True xor True` is `False`).
 
+# Maybe
+Well discuss Maybe a bit later when we talk about types, but for now you can think of a Maybe as a value that may or may not exist. When it exists it's a `Just`, from which you can extract a value, and when it doesn't, it's a `Nothing`. Elm doesn't use a null, nil, or undefined value in the same way that many other languages do, so Maybe lets us perform operations like, for example, pulling a value from a dict, when we have no guarantee that the value is actually there.
+
+``` 
+justFour = Just 4
+nothing = Nothing
+```
 
 #function application and composition
