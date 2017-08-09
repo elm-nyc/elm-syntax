@@ -121,7 +121,7 @@ What if we want to apply multiple functions to some arguments? We can do so with
 ```
 is the same as 1 + (2 - 1). However, all those parens can get a bit confusing, so elm provides us backwards and forwards function application. From the [docs](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Basics#|>)
 
-**Backward function application** f <| x == f x. This function is useful for avoiding parentheses. Consider the following code to create a text element:
+>>**Backward function application** f <| x == f x. This function is useful for avoiding parentheses. Consider the following code to create a text element:
 ```
 leftAligned (monospace (fromString "code"))
 ```
@@ -129,9 +129,10 @@ This can also be written as:
 ```
 leftAligned <| monospace <| fromString "code"
 ```
+
 and
 
-**Forward function application** x |> f == f x. This function is useful for avoiding parentheses and writing code in a more natural way. Consider the following code to create a pentagon:
+>>**Forward function application** x |> f == f x. This function is useful for avoiding parentheses and writing code in a more natural way. Consider the following code to create a pentagon:
 ```
 scale 2 (move (10,10) (filled blue (ngon 5 30)))
 ```
@@ -142,5 +143,3 @@ ngon 5 30
   |> move (10,10)
   |> scale 2
 ```
-
-
