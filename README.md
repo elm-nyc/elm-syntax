@@ -85,6 +85,14 @@ justFour = Just 4
 nothing = Nothing
 ```
 
+## Type declaration
+When definining a value, it is also a good idea to specify its type. The elm compiler can infer types, but you can get better error messages and make your code more readable by explicitly declaring types. 
+
+```
+four : Int
+four = 4
+```
+
 # Function Application
 OK. Now we know a bunch of great ways to enter data into our program, but how do we work with it? Apply functions. Function application takes the form of the function name followed by each of its arguments without parenthesis or commas.
 ```
@@ -145,8 +153,52 @@ ngon 5 30
 ```
 
 # Function Definition
+```
+isItOne x = 
+  if x == 1 then True else False
+
+doMath x = 
+  let
+    twentyFour =
+      3 * 8
+
+    sixteen =
+      4 ^ 2
+  in
+    twentyFour + sixteen + x
+```
+
+## Type Declaration
+Functions also have types that can be inferred by the compiler, but it's good practice to write them out. Function types are the types of their arguments followed by the return type, joined with `->`
+
+```
+backwardsDifference : Float -> Float -> Float
+difference x y = y - x
+```
 
 # Types
+Ok - now we can use a bunch of great data types that come with elm core and apply functions, it's time to define our own types.
+
 ## Basic
 
+
+## Alias
+
 ## Union
+
+# Control Flow
+```
+if key == 40 then
+  n + 1
+else if key == 38 then
+  n - 1
+else
+  n
+ ```
+
+```
+case maybe of 
+  Just x -> x
+  Nothing -> []
+```
+
