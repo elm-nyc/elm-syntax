@@ -204,6 +204,8 @@ case maybe of
 
 ## Helpful links
 [core library docs](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/)
+
 [syntax intro](http://elm-lang.org/docs/syntax)
+
 [ellie online compiler](https://ellie-app.com/new)
 
