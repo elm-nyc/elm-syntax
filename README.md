@@ -85,7 +85,7 @@ justFour = Just 4
 nothing = Nothing
 ```
 
-## Type declaration
+## Type annotation
 When definining a value, it is also a good idea to specify its type. The elm compiler can infer types, but you can get better error messages and make your code more readable by explicitly declaring types. 
 
 ```
@@ -168,7 +168,7 @@ doMath x =
     twentyFour + sixteen + x
 ```
 
-## Type Declaration
+## Type Annotation
 Functions also have types that can be inferred by the compiler, but it's good practice to write them out. Function types are the types of their arguments followed by the return type, joined with `->`
 
 ```
@@ -177,12 +177,18 @@ backwardsDifference x y = y - x
 ```
 
 # Types
-Ok - now we can use a bunch of great data types that come with elm core and apply functions, it's time to define our own types... LATER.
-
-## Basic
+Ok - now we can use a bunch of great data types that come with elm core and apply functions, it's time to define our own types...
 
 ## Alias
-You can define a type simply by giving a more descriptive name to an existing type.
+The simplest way to define a type is to give a more descriptive name to an existing type; this is called a 'type alias'. For example, cartesian coordinates are frequently modeled as a tuple of floats, so let's create a coordinate type.
+```
+type alias Coordinate = (Float, Float)
+```
+I can now define a function that takes a Coordinate, as opposed to just (Float, Float)
+```
+moveUpOne : Coordinate -> Coordinate
+moveUpOne (x, y) = (x, (y + 1))
+```
 
 ## Union
 You can define a type as a set of other, existing types
