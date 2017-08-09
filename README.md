@@ -181,10 +181,11 @@ Ok - now we can use a bunch of great data types that come with elm core and appl
 
 ## Basic
 
-
 ## Alias
+You can define a type simply by giving a more descriptive name to an existing type.
 
 ## Union
+You can define a type as a set of other, existing types
 
 # Control Flow
 ```
@@ -208,4 +209,6 @@ case maybe of
 [syntax intro](http://elm-lang.org/docs/syntax)
 
 [ellie online compiler](https://ellie-app.com/new)
+
+[a nice intro to some functional concepts (it's haskell tho)](http://www.seas.upenn.edu/~cis194/spring13/lectures/01-intro.html)
 
