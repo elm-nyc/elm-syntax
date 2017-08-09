@@ -177,7 +177,7 @@ difference x y = y - x
 ```
 
 # Types
-Ok - now we can use a bunch of great data types that come with elm core and apply functions, it's time to define our own types.
+Ok - now we can use a bunch of great data types that come with elm core and apply functions, it's time to define our own types... LATER.
 
 ## Basic
 
@@ -201,4 +201,9 @@ case maybe of
   Just x -> x
   Nothing -> []
 ```
+
+## Helpful links
+[core library docs](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/)
+[syntax intro](http://elm-lang.org/docs/syntax)
+[ellie online compiler](https://ellie-app.com/new)
 
