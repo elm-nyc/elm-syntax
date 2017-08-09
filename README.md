@@ -143,3 +143,10 @@ ngon 5 30
   |> move (10,10)
   |> scale 2
 ```
+
+# Function Definition
+
+# Types
+## Basic
+
+## Union
