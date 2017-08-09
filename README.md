@@ -1,6 +1,6 @@
-###a quick intro to elm syntax and some "functional" concepts
-##basic data
-#Numbers
+### a quick intro to elm syntax and some "functional" concepts
+## basic data
+# Numbers
 Numbers can be an Int or a Float, and standard math operations are available in the core library [basics](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Basics). Note that integer division and floating point division are defined separately (`//` vs `/`)
 
 ``` 
