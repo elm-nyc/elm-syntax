@@ -1,7 +1,7 @@
 # A quick intro to elm syntax and some "functional" concepts
 ## Basic Data
 ### Numbers
-Numbers can be an Int or a Float, and standard math operations are available in the core library [basics](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Basics). Note that integer division and floating point division are defined separately (`//` vs `/`)
+Numbers can be an Int or a Float, and standard math operations are available in the core library [basics](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Basics#Mathematics). Note that integer division and floating point division are defined separately (`//` vs `/`)
 
 ``` 
 four = 
@@ -11,10 +11,10 @@ five =
   26 // 5
 
 fivePointOh = 
-  25.0 / 5.0
+  25 / 5
 ```
 
-### Strings and characters
+### Strings and Characters
 A string literal is defined with `"`, a character with `'`. Strings are not simply lists of characters. Combine strings with `++`.
 
 ```
@@ -44,7 +44,7 @@ elmStyle =
 
 **FUNCTIONAL CONCEPT: immutability and `=`**
 
-in elm, `=` may be a bit different than in languages that you've worked with. While `=` commonly means "gets", as in, a variable "gets" a value, in elm it's closer to the way one might think of it in math. Therefore, when I write `four = 4` I'm saying that `four` is _defined to be_ `4`. I can not, elsewhere in the same scope, define it to be something else - `four` is "immutable". In this way, I can be confident that anywhere in my code where I see `4` I can replace it with `four`, and vice versa, without changing the meaning of my program. This may take some time to get used to, but it often has the effect of making programs easier to understand and reason about.
+in elm, `=` may be a bit different than in languages that you've worked with. While `=` commonly means "gets", as in, a variable "gets" a value, in elm it's closer to the way one might think of it in math. Therefore, when I write `four = 4` I'm saying that `four` is _defined to be_ `4`. I cannot, elsewhere in the same scope, define it to be something else - `four` is "immutable". In this way, I can be confident that anywhere in my code where I see `4` I can replace it with `four`, and vice versa, without changing the meaning of my program. This may take some time to get used to, but it often has the effect of making programs easier to understand and reason about.
 
 ### Tuple
 Pairs of values defined with `( , )`. Values in a tuple do not need to be of the same type.
@@ -68,7 +68,14 @@ person.name
 .name person
 
 ```
-Updating values in records cannot, however, be achieved by mutating a value, as in javascript. ie `object = { key = "value" }; object.key = "otherValue"` will not fly here. Instead, there is a completely different syntax that takes a record and returns a *new* record with updated values. 
+Updating values in records cannot, however, be achieved by mutating a value, as in javascript. 
+ie. 
+```
+object = { key = "value" }; 
+object.key = "otherValue"
+``` 
+will not fly here. Instead, there is a completely different syntax that takes a record and returns a *new* record with updated values. 
+
 ```
 { person | name = "Noah }
 ```
@@ -85,8 +92,10 @@ justFour = Just 4
 nothing = Nothing
 ```
 
+It may seem a bit odd if you're used to something like `{}['someKey']` returning `undefined`, but returning a `Maybe` instead is explicit about the fact that you may need to deal with the `undefined` case so you can consider that initially, instead of when it causes something to break down the road. 
+
 ## Type annotation
-When definining a value, it is also a good idea to specify its type. The elm compiler can infer types, but you can get better error messages and make your code more readable by explicitly declaring types. 
+When definining a value, it is also a good idea to specify its type. The elm compiler can infer types, but you can get better error messages and make your code more readable by explicitly declaring types. (we'll discuss types in more depth later)
 
 ```
 four : Int
@@ -120,7 +129,7 @@ function(arg) {
 where calling the function both updates the value of `foo` and returns a value that depends on both `foo` and the passed argument. The "side effect" here is the change in the value of `foo` and this sort of thing is not possible in elm.
 
 **FUNCTIONAL CONCEPT: determinism**
-Becase there is no mutation or side effects, any function, given an identical set of inputs, will always return the same thing. Thus, anywhere we see `1 + 1` in our code, we can replace it with `2`. This seems simple, but consider the javascript example above - the first time we called our function and passed it `1`, it would return `2`, but we cannot assume that it will always return 2 when passed 1, because the value of foo will change each time it is called.
+Becase there is no mutation or side effects, any function, given an identical set of inputs, will always return the same thing. Thus, anywhere we see `1 + 1` in our code, we can replace it with `2`. This seems simple, but consider the javascript example above - the first time we called our function and passed it `1`, it would return `2`, but we cannot assume that it will always return 2 when passed 1, because the value of foo will change each time it is called. In discussing `=` we noted that, like in math, anything we see on one side of `=`, we can replace with what's on the other side; because function calls are deterministic, this includes expressions with functions. 
 
 ## <| and |>
 What if we want to apply multiple functions to some arguments? We can do so with parentheses 
@@ -176,6 +185,10 @@ backwardsDifference : Float -> Float -> Float
 backwardsDifference x y = y - x
 ```
 
+**FUNCTIONAL CONCEPT: currying and partial application**
+
+every function has exactly one argument. explaining is hard.
+
 # Types
 Ok - now we can use a bunch of great data types that come with elm core and apply functions, it's time to define our own types...
 
@@ -191,9 +204,34 @@ moveUpOne (x, y) = (x, (y + 1))
 ```
 
 ## Union
-You can define a type as a set of other, existing types
+You can define a type as a set of other, existing types. A simple example of a union type is a Bool, which has two values, the True type, and the False type. Defining Bool ourselves would look like this:
+```
+type Bool = True | False
+```
+or, more commonly:
+```
+Type Bool
+  = True
+  | False
+```
+In this case, all the information we need is captured by the type True or False. However, say we lived in a world where some expressions were True, some were False, but some could not be determined to be either, and instead of evaluating them to True or False, we could only get the probability of their being true. We would want to add a third type to our Bool union type like so:
+```
+Type Bool
+  = True
+  | False
+  | PossiblyTrue
+```
+However, not all values of `Possibly True` are the same - some are more likely to be true than others. To represent this, we can add a float to the type like so:
+```
+Type Bool
+  = True
+  | False
+  | PossiblyTrue Float
+```
+Now we can have values like `PossiblyTrue 0.9`, representing something that has a 90% chance of being true. 
 
-# Control Flow
+
+# Control Flow (etc)
 ```
 if key == 40 then
   n + 1
@@ -202,6 +240,11 @@ else if key == 38 then
 else
   n
  ```
+
+```
+let
+in
+``
 
 ```
 case maybe of 
@@ -217,4 +260,3 @@ case maybe of
 [ellie online compiler](https://ellie-app.com/new)
 
 [a nice intro to some functional concepts (it's haskell tho)](http://www.seas.upenn.edu/~cis194/spring13/lectures/01-intro.html)
-
