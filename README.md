@@ -42,7 +42,7 @@ elmStyle =
   ]
 ```
 
-**FUNCTIONAL CONCEPT: immutability and `=`**
+*FUNCTIONAL CONCEPT: immutability and `=`**
 
 in elm, `=` may be a bit different than in languages that you've worked with. While `=` commonly means "gets", as in, a variable "gets" a value, in elm it's closer to the way one might think of it in math. Therefore, when I write `four = 4` I'm saying that `four` is _defined to be_ `4`. I cannot, elsewhere in the same scope, define it to be something else - `four` is "immutable". In this way, I can be confident that anywhere in my code where I see `4` I can replace it with `four`, and vice versa, without changing the meaning of my program. This may take some time to get used to, but it often has the effect of making programs easier to understand and reason about.
 
@@ -128,8 +128,8 @@ function(arg) {
 ```
 where calling the function both updates the value of `foo` and returns a value that depends on both `foo` and the passed argument. The "side effect" here is the change in the value of `foo` and this sort of thing is not possible in elm.
 
-**FUNCTIONAL CONCEPT: determinism**
-Becase there is no mutation or side effects, any function, given an identical set of inputs, will always return the same thing. Thus, anywhere we see `1 + 1` in our code, we can replace it with `2`. This seems simple, but consider the javascript example above - the first time we called our function and passed it `1`, it would return `2`, but we cannot assume that it will always return 2 when passed 1, because the value of foo will change each time it is called. In discussing `=` we noted that, like in math, anything we see on one side of `=`, we can replace with what's on the other side; because function calls are deterministic, this includes expressions with functions. 
+**FUNCTIONAL CONCEPT: pure functions**
+Becase there is no mutation or side effects, any function, given an identical set of inputs, will always return the same thing. Thus, anywhere we see `1 + 1` in our code, we can replace it with `2`. This seems simple, but consider the javascript example above - the first time we called our function and passed it `1`, it would return `2`, but we cannot assume that it will always return 2 when passed 1, because the value of foo will change each time it is called. In discussing `=` we noted that, like in math, anything we see on one side of `=`, we can replace with what's on the other side; because function calls are pure, this includes expressions with functions. 
 
 ## <| and |>
 What if we want to apply multiple functions to some arguments? We can do so with parentheses 
@@ -177,8 +177,34 @@ doMath x =
     twentyFour + sixteen + x
 ```
 
+# Control Flow (etc)
+All but the most simple programs need some branching logic. If and case statements provide that in a simple way.
+```
+if key == 40 then
+  n + 1
+else if key == 38 then
+  n - 1
+else
+  n
+ ```
+
+```
+case maybe of 
+  Just x -> x
+  Nothing -> []
+```
+
+'Let' blocks are also useful for cleaning up code and making it more readable
+
+```
+let
+  four = 4
+in
+  2 + four
+```
+
 ## Type Annotation
-Functions also have types that can be inferred by the compiler, but it's good practice to write them out. Function types are the types of their arguments followed by the return type, joined with `->`
+Functions, like basic data structures, also have types that can be inferred by the compiler, but it's good practice to write them out. Function types are the types of their arguments followed by the return type, joined with `->`
 
 ```
 backwardsDifference : Float -> Float -> Float
@@ -229,28 +255,6 @@ Type Bool
   | PossiblyTrue Float
 ```
 Now we can have values like `PossiblyTrue 0.9`, representing something that has a 90% chance of being true. 
-
-
-# Control Flow (etc)
-```
-if key == 40 then
-  n + 1
-else if key == 38 then
-  n - 1
-else
-  n
- ```
-
-```
-let
-in
-```
-
-```
-case maybe of 
-  Just x -> x
-  Nothing -> []
-```
 
 ## Helpful links
 [core library docs](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/)
